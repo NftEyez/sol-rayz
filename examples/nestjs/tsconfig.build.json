@@ -1,6 +1,0 @@
-{
-  /* Extend the config that contains the path aliases. */
-  "extends": "./tsconfig.json",
-
-  "exclude": ["node_modules", "test", "dist", "**/*spec.ts"]
-}

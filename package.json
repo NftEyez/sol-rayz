@@ -3,8 +3,7 @@
   "description": "Template for setting up a TypeScript monorepo",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "examples/*"
+    "packages/*"
   ],
   "scripts": {
     "docs": "doctoc --title '**Table of content**' README.md",
