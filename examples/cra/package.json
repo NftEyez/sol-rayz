@@ -1,0 +1,39 @@
+{
+  "name": "@nighttrax/cra-example",
+  "description": "Example of using create-react-app in a TS monorepo",
+  "private": true,
+  "version": "1.0.0",
+  "dependencies": {
+    "@nighttrax/foo": "*",
+    "@nighttrax/components": "*",
+    "react": "~17.0.0",
+    "react-dom": "~17.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "~16.11.0",
+    "@types/react": "~17.0.0",
+    "@types/react-dom": "~17.0.0",
+    "@craco/craco": "~6.4.0",
+    "cross-env": "~7.0.2",
+    "react-scripts": "~4.0.1",
+    "fork-ts-checker-webpack-plugin": "~6.4.0",
+    "tsconfig-paths-webpack-plugin": "~3.5.0"
+  },
+  "scripts": {
+    "start": "cross-env SKIP_PREFLIGHT_CHECK=true craco start",
+    "build": "cross-env SKIP_PREFLIGHT_CHECK=true craco build",
+    "test": "yarn run build"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

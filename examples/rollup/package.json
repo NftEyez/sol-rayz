@@ -1,0 +1,20 @@
+{
+  "name": "@nighttrax/rollup-example",
+  "private": true,
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "rollup -c",
+    "test": "yarn run build"
+  },
+  "dependencies": {
+    "@nighttrax/foo": "*"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "~8.3.0",
+    "@types/node": "~16.11.0",
+    "rollup": "~2.59.0",
+    "tslib": "~2.3.0"
+  }
+}
