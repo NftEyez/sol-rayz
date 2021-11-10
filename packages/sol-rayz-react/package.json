@@ -1,6 +1,16 @@
 {
   "name": "@nfteyez/sol-rayz-react",
   "version": "0.6.1",
+  "license": "MIT",
+  "author": {
+    "name": "NftEyez Team",
+    "url": "https://nfteyez.global/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/NftEyez/sol-rayz.git",
+    "directory": "packages/sol-rayz-react"
+  },
   "main": "dist/index",
   "types": "dist/index",
   "files": [
