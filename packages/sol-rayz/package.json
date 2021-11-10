@@ -25,5 +25,6 @@
     "@types/lodash.chunk": "^4.2.6",
     "borsh": "^0.6.0",
     "lodash.chunk": "^4.2.0"
-  }
+  },
+  "gitHead": "af1e2fb612b418eb1fcf8762572dc702c9112970"
 }
