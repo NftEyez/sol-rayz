@@ -49,13 +49,9 @@ TBD
 
 TODO list:
 
-Create descriptive README
-Move to TS
-Add Lerna
-Add package for React
-Add other useful methods
-Add some dummy UI
-
+- Create descriptive README
+- Add React Hooks
+- 
 ## Development
 
 <!-- TBA -->
