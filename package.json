@@ -1,6 +1,7 @@
 {
   "name": "@nfteyez/root",
   "description": "Set of utils to parse NFTs on Solana blockchain.",
+  "private": true,
   "workspaces": [
     "packages/*"
   ],
