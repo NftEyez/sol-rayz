@@ -5,13 +5,13 @@ import {
 } from "@nfteyez/sol-rayz";
 
 const result = isValidSolanaAddress(
-  "8H4iibgTn3d9S6oGABKZADg1grWrYp5GGDyo5FaAqpYV"
+  "3EqUrFrjgABCWAnqMYjZ36GcktiwDtFdkNYwY6C6cDzy"
 );
 console.log("result", result);
 
 const parseNfts = async () => {
   const nfts = await getParsedNftAccountsByOwner({
-    publicAddress: "8H4iibgTn3d9S6oGABKZADg1grWrYp5GGDyo5FaAqpYV",
+    publicAddress: "3EqUrFrjgABCWAnqMYjZ36GcktiwDtFdkNYwY6C6cDzy",
   });
   console.log("fetched nfts: ", nfts.length);
 };

@@ -8,6 +8,7 @@
   "scripts": {
     "docs": "doctoc --title '**Table of content**' README.md",
     "clean": "lerna run clean",
+    "clean:deps": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
     "build": "lerna run build",
     "pub": "lerna publish",
     "test": "lerna run test",
@@ -16,7 +17,7 @@
   "devDependencies": {
     "@nighttrax/eslint-config-tsx": "~9.0.0",
     "doctoc": "~2.1.0",
-    "eslint": "~8.2.0",
+    "eslint": "^7.11.0",
     "eslint-plugin-import": "~2.25.0",
     "lerna": "~4.0.0",
     "react": "~17.0.0",
