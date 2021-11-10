@@ -1,7 +1,6 @@
 {
-  "name": "ts-monorepo",
-  "description": "Template for setting up a TypeScript monorepo",
-  "private": true,
+  "name": "@nfteyez/root",
+  "description": "Set of utils to parse NFTs on Solana blockchain.",
   "workspaces": [
     "packages/*"
   ],
