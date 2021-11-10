@@ -1,6 +1,6 @@
 {
   "name": "@nfteyez/sol-rayz-react",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "license": "MIT",
   "author": {
     "name": "NftEyez Team",
@@ -24,7 +24,7 @@
     "test": "yarn run build"
   },
   "dependencies": {
-    "@nfteyez/sol-rayz": "^0.6.1",
+    "@nfteyez/sol-rayz": "^0.6.2",
     "@solana/web3.js": "^1.30.2"
   },
   "peerDependencies": {
