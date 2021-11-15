@@ -54,6 +54,10 @@ export type Options = {
   sort?: boolean;
 };
 
+enum sortKeys {
+  updateAuthority = "updateAuthority",
+}
+
 export const getParsedNftAccountsByOwner = async ({
   publicAddress,
   connection = createConnectionConfig(),
@@ -132,8 +136,11 @@ export const getParsedNftAccountsByOwner = async ({
 
   // sort accounts if sort is true & updateAuthority stringified
   if (stringifyPubKeys && sort) {
-    const keyToSort = "updateAuthority";
-    const accountsSorted = orderBy(accountsFiltered, [keyToSort], ["asc"]);
+    const accountsSorted = orderBy(
+      accountsFiltered,
+      [sortKeys.updateAuthority],
+      ["asc"]
+    );
     return accountsSorted;
   }
   // otherwise return unsorted

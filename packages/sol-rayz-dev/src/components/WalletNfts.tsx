@@ -1,16 +1,16 @@
-import React, { useState, FC, useEffect } from "react";
-import {
-  getParsedNftAccountsByOwner,
-  isValidSolanaAddress,
-  // @ts-ignore
-} from "@nfteyez/sol-rayz";
+import React, { useState, FC } from "react";
+// import {
+//   getParsedNftAccountsByOwner,
+//   isValidSolanaAddress,
+//   // @ts-ignore
+// } from "@nfteyez/sol-rayz";
 import { useWalletNfts } from "@nfteyez/sol-rayz-react";
 // import {
 //   useWalletNfts,
 //   // @ts-ignore
 // } from "../hooks/useWalletNfts";
 
-const defaultWallet = "";
+const defaultWallet = "3EqUrFrjgABCWAnqMYjZ36GcktiwDtFdkNYwY6C6cDzy";
 
 export const WalletNfts: FC = () => {
   const [walletPublicKey, setWalletPublicKey] = useState(defaultWallet);
@@ -24,8 +24,8 @@ export const WalletNfts: FC = () => {
   //   parseNfts();
   // }, [walletPublicKey]);
 
-  console.log("nftsWallet", nfts);
-  console.log("error", error);
+  // console.log("nftsWallet", nfts);
+  // console.log("error", error);
 
   // const parseNfts = async () => {
   //   const result = isValidSolanaAddress(walletPublicKey);
