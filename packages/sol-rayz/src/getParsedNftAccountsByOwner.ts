@@ -6,6 +6,7 @@ import {
   Commitment,
 } from "@solana/web3.js";
 import chunks from "lodash.chunk";
+import orderBy from "lodash.orderby";
 import {
   decodeTokenMetadata,
   getSolanaMetadataAddress,
@@ -19,27 +20,56 @@ export const createConnectionConfig = (
   commitment = "confirmed"
 ) => new Connection(clusterApi, commitment as Commitment);
 
-type Props = {
+export type Options = {
   /**
    * Wallet public address
    */
   publicAddress: StringPublicKey;
+  /**
+   * Optionally provide your own connection object.
+   * Otherwise createConnectionConfig() will be used
+   */
   connection?: Connection;
-  serialization?: boolean;
+  /**
+   * Remove possible rust's empty string symbols `\x00` from the values,
+   * which is very common issue.
+   * Default is true
+   */
+  sanitize?: boolean;
   /**
    * TODO: Add description within README and link here
+   * Default is false - slow method
+   * true - is fast method
    */
   strictNftStandard?: boolean;
+  /**
+   * Convert all PublicKey objects to string versions.
+   * Default is true
+   */
+  stringifyPubKeys?: boolean;
+  /**
+   * Sort tokens by Update Authority (read by Collection)
+   * Default is true
+   */
+  sort?: boolean;
 };
+
+enum sortKeys {
+  updateAuthority = "updateAuthority",
+}
 
 export const getParsedNftAccountsByOwner = async ({
   publicAddress,
   connection = createConnectionConfig(),
-  serialization = true,
+  sanitize = true,
   strictNftStandard = false,
-}: Props) => {
+  stringifyPubKeys = true,
+  sort = true,
+}: Options) => {
   const isValidAddress = isValidSolanaAddress(publicAddress);
-  if (!isValidAddress) return [];
+  if (!isValidAddress) {
+    return [];
+  }
 
   // TODO: Needs performace test
   // getParsedTokenAccountsByOwner vs getTokenAccountsByOwner + partial parsing
@@ -58,14 +88,14 @@ export const getParsedNftAccountsByOwner = async ({
     const decimals = account?.data?.parsed?.info?.tokenAmount?.decimals;
 
     if (strictNftStandard) {
-      // Here is correct way to do it described by Solana
+      // Here is correct way to do it. it is described by Solana
       // faster way, will filter out most unrelivant SPL-tokens
       return decimals === 0 && amount >= 1;
-    } else {
-      // Weak method to find NFT tokens
-      // some older NFTs can be found only this way, like Solarians e.g.
-      return amount > 0;
     }
+
+    // Weak method to find NFT tokens
+    // some older NFTs can be found only this way, like Solarians e.g.
+    return amount > 0;
   });
 
   const acountsMetaAddressPromises = await Promise.allSettled(
@@ -76,7 +106,7 @@ export const getParsedNftAccountsByOwner = async ({
   );
 
   const acountsMetaAddress = acountsMetaAddressPromises
-    .filter(onlySuccessfull)
+    .filter(onlySuccessfullPromises)
     .map(({ value }) => value);
 
   const accountsRawMetaResponse = await Promise.allSettled(
@@ -85,6 +115,7 @@ export const getParsedNftAccountsByOwner = async ({
         return await connection.getMultipleAccountsInfo(chunk);
       } catch (err) {
         console.error(err);
+        return false;
       }
     })
   );
@@ -94,34 +125,55 @@ export const getParsedNftAccountsByOwner = async ({
     .flatMap(({ value }) => value);
 
   const accountsDecodedMeta = await Promise.allSettled(
-    accountsRawMeta.map((accountInfo) => {
-      return decodeTokenMetadata(accountInfo?.data);
-    })
+    accountsRawMeta.map((accountInfo) => decodeTokenMetadata(accountInfo?.data))
   );
 
-  return accountsDecodedMeta
-    .filter(onlySuccessfull)
+  const accountsFiltered = accountsDecodedMeta
+    .filter(onlySuccessfullPromises)
     .filter(onlyNftsWithMetadata)
-    .map(({ value }) => (serialization ? sanitizeTokenMeta(value) : value));
+    .map(({ value }) => (sanitize ? sanitizeTokenMeta(value) : value))
+    .map((token) => (stringifyPubKeys ? publicKeyToString(token) : token));
+
+  // sort accounts if sort is true & updateAuthority stringified
+  if (stringifyPubKeys && sort) {
+    const accountsSorted = orderBy(
+      accountsFiltered,
+      [sortKeys.updateAuthority],
+      ["asc"]
+    );
+    return accountsSorted;
+  }
+  // otherwise return unsorted
+  return accountsFiltered;
 };
 
-const sanitizeTokenMeta = (tokenData) => {
-  return {
-    ...tokenData,
-    data: {
-      ...tokenData.data,
-      name: sanitizeMetaStrings(tokenData?.data?.name),
-      symbol: sanitizeMetaStrings(tokenData?.data?.symbol),
-      uri: sanitizeMetaStrings(tokenData?.data?.uri),
-    },
-  };
-};
+const sanitizeTokenMeta = (tokenData) => ({
+  ...tokenData,
+  data: {
+    ...tokenData?.data,
+    name: sanitizeMetaStrings(tokenData?.data?.name),
+    symbol: sanitizeMetaStrings(tokenData?.data?.symbol),
+    uri: sanitizeMetaStrings(tokenData?.data?.uri),
+  },
+});
 
-export const sanitizeMetaStrings = (metaString) => {
-  return metaString.replace(/\0/g, "");
-};
+const publicKeyToString = (tokenData) => ({
+  ...tokenData,
+  mint: tokenData?.mint?.toString?.(),
+  updateAuthority: tokenData?.updateAuthority?.toString?.(),
+  data: {
+    ...tokenData?.data,
+    creators: tokenData?.data?.creators?.map((c: any) => ({
+      ...c,
+      address: new PublicKey(c?.address)?.toString?.(),
+    })),
+  },
+});
 
-const onlySuccessfull = (
+export const sanitizeMetaStrings = (metaString) =>
+  metaString.replace(/\0/g, "");
+
+const onlySuccessfullPromises = (
   result: PromiseSettledResult<Promise<PublicKey>>
 ): boolean => result && result.status === "fulfilled";
 

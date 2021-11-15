@@ -104,3 +104,6 @@ dist
 # TernJS port file
 .tern-port
 © 2021 GitHu
+
+# macOS
+.DS_Store

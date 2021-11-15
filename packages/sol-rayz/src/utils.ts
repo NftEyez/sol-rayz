@@ -1,13 +1,13 @@
-import { deserializeUnchecked } from 'borsh';
-import { PublicKey } from '@solana/web3.js';
+import { deserializeUnchecked } from "borsh";
+import { PublicKey } from "@solana/web3.js";
 import {
   METADATA_SCHEMA,
   Metadata,
   METADATA_PREFIX,
   METADATA_PROGRAM,
-} from './config/metaplex';
+} from "./config/metaplex";
 
-import { extendBorsh } from './config/borsh';
+import { extendBorsh } from "./config/borsh";
 
 extendBorsh();
 
