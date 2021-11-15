@@ -63,10 +63,43 @@ const tokenList = await getParsedNftAccountsByOwner({
 `isValidSolanaAddress` - check if provided string is valid Solana address.
 
 ```javascript
-import {
-  isValidSolanaAddress
-} from "@nfteyez/sol-rayz";
+import { isValidSolanaAddress } from '@nfteyez/sol-rayz';
 
-const isValidAddress: boolean = isValidSolanaAddress(walletPublicKey: string);
+const isValidAddress: boolean = isValidSolanaAddress((walletPublicKey: string));
+```
 
+`getParsedAccountByMint` - return parsed account for given mint address.
+
+```javascript
+import { getParsedAccountByMint } from '@nfteyez/sol-rayz';
+
+const parsedAccountByMint: ParsedAccountInfo = getParsedAccountByMintgetParsedAccountByMint({
+  /**
+   * Mint address
+   */
+  mintAddress: StringPublicKey;
+  /**
+   * Optionally provide your own connection object.
+   * Otherwise createConnectionConfig() will be used
+   */
+  connection?: Connection;
+});
+```
+
+`getParsedNftAccountsByUpdateAuthority` - return parsed list of NFTs (SPL Tokens) for given update authority. Each item in array have all data specified on the blockchain. The NFT metadata stored separately, you need to pick `uri` property for each token and fetch data youself.
+
+```javascript
+import { getParsedNftAccountsByUpdateAuthority } from '@nfteyez/sol-rayz';
+
+const parsedAccountByMint = getParsedNftAccountsByUpdateAuthority({
+  /**
+   * Update authority address
+   */
+  updateAuthority: StringPublicKey;
+  /**
+   * Optionally provide your own connection object.
+   * Otherwise createConnectionConfig() will be used
+   */
+  connection?: Connection;
+});
 ```
