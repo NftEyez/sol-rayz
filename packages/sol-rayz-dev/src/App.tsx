@@ -1,5 +1,5 @@
 import "./App.css";
-import { WalletNfts } from "./WalletNfts";
+import { WalletNfts } from "./components/WalletNfts";
 
 function App() {
   return (

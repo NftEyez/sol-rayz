@@ -10,6 +10,7 @@
     "clean": "lerna run clean",
     "clean:deps": "find . -name 'node_modules' -type d -prune -exec rm -rf '{}' +",
     "build": "lerna run build",
+    "watch": "lerna run watch",
     "pub": "lerna publish",
     "test": "lerna run test",
     "lint": "eslint --ext js,ts,tsx ."

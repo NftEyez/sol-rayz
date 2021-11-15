@@ -1,19 +1,6 @@
-// @ts-ignore
-import {
-  getParsedNftAccountsByOwner,
-  isValidSolanaAddress,
-} from "@nfteyez/sol-rayz";
+export { useWalletNfts } from "./hooks/useWalletNfts";
 
-const result = isValidSolanaAddress(
-  "3EqUrFrjgABCWAnqMYjZ36GcktiwDtFdkNYwY6C6cDzy"
-);
-console.log("result", result);
-
-const parseNfts = async () => {
-  const nfts = await getParsedNftAccountsByOwner({
-    publicAddress: "3EqUrFrjgABCWAnqMYjZ36GcktiwDtFdkNYwY6C6cDzy",
-  });
-  console.log("fetched nfts: ", nfts.length);
-};
-
-parseNfts();
+// weird way to export types
+// https://github.com/microsoft/TypeScript/issues/28481#issuecomment-552938424
+export type NftTokenAccount = import("./types").NftTokenAccount;
+export type WalletResult = import("./types").WalletResult;
