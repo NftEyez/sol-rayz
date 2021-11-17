@@ -1,24 +1,19 @@
-// @ts-nocheck
-import {
-  clusterApiUrl,
-  Connection,
-  PublicKey,
-  Commitment,
-} from "@solana/web3.js";
+import { Connection, PublicKey, AccountInfo } from "@solana/web3.js";
 import chunks from "lodash.chunk";
 import orderBy from "lodash.orderby";
 import {
   decodeTokenMetadata,
   getSolanaMetadataAddress,
   isValidSolanaAddress,
+  createConnectionConfig,
 } from "./utils";
 import { TOKEN_PROGRAM } from "./config/solana";
-import { StringPublicKey } from "./types";
-
-export const createConnectionConfig = (
-  clusterApi = clusterApiUrl("mainnet-beta"),
-  commitment = "confirmed"
-) => new Connection(clusterApi, commitment as Commitment);
+import { Metadata } from "./config/metaplex";
+import {
+  StringPublicKey,
+  PromiseSettledResult,
+  PromiseFulfilledResult,
+} from "./types";
 
 export type Options = {
   /**
@@ -107,14 +102,14 @@ export const getParsedNftAccountsByOwner = async ({
 
   const acountsMetaAddress = acountsMetaAddressPromises
     .filter(onlySuccessfullPromises)
-    .map(({ value }) => value);
+    .map((p) => (p as PromiseFulfilledResult<unknown>).value);
 
   const accountsRawMetaResponse = await Promise.allSettled(
     chunks(acountsMetaAddress, 99).map(async (chunk) => {
       try {
-        return await connection.getMultipleAccountsInfo(chunk);
+        return await connection.getMultipleAccountsInfo(chunk as PublicKey[]);
       } catch (err) {
-        console.error(err);
+        console.log(err); // eslint-disable-line
         return false;
       }
     })
@@ -122,16 +117,21 @@ export const getParsedNftAccountsByOwner = async ({
 
   const accountsRawMeta = accountsRawMetaResponse
     .filter(({ status }) => status === "fulfilled")
-    .flatMap(({ value }) => value);
+    .flatMap((p) => (p as PromiseFulfilledResult<unknown>).value);
 
   const accountsDecodedMeta = await Promise.allSettled(
-    accountsRawMeta.map((accountInfo) => decodeTokenMetadata(accountInfo?.data))
+    accountsRawMeta.map((accountInfo) =>
+      decodeTokenMetadata((accountInfo as AccountInfo<Buffer>)?.data)
+    )
   );
 
   const accountsFiltered = accountsDecodedMeta
     .filter(onlySuccessfullPromises)
     .filter(onlyNftsWithMetadata)
-    .map(({ value }) => (sanitize ? sanitizeTokenMeta(value) : value))
+    .map((p) => {
+      const { value } = p as PromiseFulfilledResult<Metadata>;
+      return sanitize ? sanitizeTokenMeta(value) : value;
+    })
     .map((token) => (stringifyPubKeys ? publicKeyToString(token) : token));
 
   // sort accounts if sort is true & updateAuthority stringified
@@ -147,7 +147,7 @@ export const getParsedNftAccountsByOwner = async ({
   return accountsFiltered;
 };
 
-const sanitizeTokenMeta = (tokenData) => ({
+const sanitizeTokenMeta = (tokenData: Metadata) => ({
   ...tokenData,
   data: {
     ...tokenData?.data,
@@ -157,7 +157,7 @@ const sanitizeTokenMeta = (tokenData) => ({
   },
 });
 
-const publicKeyToString = (tokenData) => ({
+const publicKeyToString = (tokenData: Metadata) => ({
   ...tokenData,
   mint: tokenData?.mint?.toString?.(),
   updateAuthority: tokenData?.updateAuthority?.toString?.(),
@@ -170,14 +170,16 @@ const publicKeyToString = (tokenData) => ({
   },
 });
 
-export const sanitizeMetaStrings = (metaString) =>
+export const sanitizeMetaStrings = (metaString: string) =>
   metaString.replace(/\0/g, "");
 
 const onlySuccessfullPromises = (
-  result: PromiseSettledResult<Promise<PublicKey>>
+  result: PromiseSettledResult<unknown>
 ): boolean => result && result.status === "fulfilled";
 
-const onlyNftsWithMetadata = (t) => {
-  const uri = t.value.data?.uri?.replace?.(/\0/g, "");
+const onlyNftsWithMetadata = (t: PromiseSettledResult<Metadata>) => {
+  const uri = (
+    t as PromiseFulfilledResult<Metadata>
+  ).value.data?.uri?.replace?.(/\0/g, "");
   return uri !== "" && uri !== undefined;
 };

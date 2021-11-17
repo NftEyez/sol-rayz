@@ -26,6 +26,8 @@
     "test": "yarn run build"
   },
   "devDependencies": {
+    "@types/lodash.chunk": "^4.2.6",
+    "@types/lodash.orderby": "^4.6.6",
     "@solana/web3.js": "^1.30.2",
     "rimraf": "~3.0.2",
     "typescript": "~4.4.0"
@@ -34,7 +36,6 @@
     "@solana/web3.js": "^1.30.2"
   },
   "dependencies": {
-    "@types/lodash.chunk": "^4.2.6",
     "borsh": "^0.6.0",
     "lodash.chunk": "^4.2.0",
     "lodash.orderby": "^4.6.0"

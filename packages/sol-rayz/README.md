@@ -63,7 +63,7 @@ const tokenList = await getParsedNftAccountsByOwner({
 `isValidSolanaAddress` - check if provided string is valid Solana address.
 
 ```javascript
-import { isValidSolanaAddress } from '@nfteyez/sol-rayz';
+import { isValidSolanaAddress } from "@nfteyez/sol-rayz";
 
 const isValidAddress: boolean = isValidSolanaAddress((walletPublicKey: string));
 ```

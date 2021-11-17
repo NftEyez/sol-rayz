@@ -37,7 +37,7 @@ export const useWalletNfts = ({ publicAddress }: Options): WalletResult => {
       const nfts = await getParsedNftAccountsByOwner({
         publicAddress,
       });
-      setNfts(nfts);
+      setNfts(nfts as any);
     } catch (error) {
       console.log(
         "Error ocurred while Solana NFT list fetched:",

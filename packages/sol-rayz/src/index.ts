@@ -1,10 +1,8 @@
-export { getParsedNftAccountsByOwner, createConnectionConfig } from './getParsedNftAccountsByOwner';
-
-export { getParsedNftAccountsByUpdateAuthority } from './getParsedNftAccountsByCollection';
-export { getParsedAccountByMint } from './getParsedAccountByMint';
+export { getParsedNftAccountsByOwner } from "./getParsedNftAccountsByOwner";
+export { getParsedNftAccountsByUpdateAuthority } from "./getParsedNftAccountsByCollection";
+export { getParsedAccountByMint } from "./getParsedAccountByMint";
+export { isValidSolanaAddress, createConnectionConfig } from "./utils";
 
 // weird way to export type
 // https://github.com/microsoft/TypeScript/issues/28481#issuecomment-552938424
-export type Options = import('./getParsedNftAccountsByOwner').Options;
-
-export { isValidSolanaAddress } from './utils';
+export type Options = import("./getParsedNftAccountsByOwner").Options;
