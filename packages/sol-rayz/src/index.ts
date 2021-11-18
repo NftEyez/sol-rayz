@@ -1,5 +1,5 @@
 export { getParsedNftAccountsByOwner } from "./getParsedNftAccountsByOwner";
-export { getParsedNftAccountsByUpdateAuthority } from "./getParsedNftAccountsByCollection";
+export { getParsedNftAccountsByUpdateAuthority } from "./getParsedNftAccountsByUpdateAuthority";
 export { getParsedAccountByMint } from "./getParsedAccountByMint";
 export { isValidSolanaAddress, createConnectionConfig } from "./utils";
 
