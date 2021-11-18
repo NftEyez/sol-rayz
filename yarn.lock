@@ -2737,13 +2737,6 @@
   dependencies:
     "@types/node" "*"
 
-"@types/es6-promise@^3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@types/es6-promise/-/es6-promise-3.3.0.tgz#61b55e554fd807b563f158a7986ee53d3a5a5a9d"
-  integrity sha512-ixCIAEkLUKv9movnHKCzx2rzAJgEnSALDXPrOSSwOjWwXFs0ssSZKan+O2e3FExPPCbX+DfA9NcKsbvLuyUlNA==
-  dependencies:
-    es6-promise "*"
-
 "@types/eslint@^7.2.6":
   version "7.28.2"
   resolved "https://registry.yarnpkg.com/@types/eslint/-/eslint-7.28.2.tgz#0ff2947cdd305897c52d5372294e8c76f351db68"
@@ -2840,6 +2833,13 @@
   version "4.2.6"
   resolved "https://registry.yarnpkg.com/@types/lodash.chunk/-/lodash.chunk-4.2.6.tgz#9d35f05360b0298715d7f3d9efb34dd4f77e5d2a"
   integrity sha512-SPlusB7jxXyGcTXYcUdWr7WmhArO/rmTq54VN88iKMxGUhyg79I4Q8n4riGn3kjaTjOJrVlHhxgX/d7woak5BQ==
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash.orderby@^4.6.6":
+  version "4.6.6"
+  resolved "https://registry.yarnpkg.com/@types/lodash.orderby/-/lodash.orderby-4.6.6.tgz#126543bb597477dc9b27d748b5822244f577915c"
+  integrity sha512-wQzu6xK+bSwhu45OeMI7fjywiIZiiaBzJB8W3fwnF1SJXHoOXRLutrSnVmq4yHPOM036qsy8lx9wHQcAbXNjJw==
   dependencies:
     "@types/lodash" "*"
 
@@ -6119,7 +6119,7 @@ es6-iterator@2.0.3, es6-iterator@~2.0.3:
     es5-ext "^0.10.35"
     es6-symbol "^3.1.1"
 
-es6-promise@*, es6-promise@^4.0.3:
+es6-promise@^4.0.3:
   version "4.2.8"
   resolved "https://registry.yarnpkg.com/es6-promise/-/es6-promise-4.2.8.tgz#4eb21594c972bc40553d276e510539143db53e0a"
   integrity sha512-HJDGx5daxeIvxdBxvG2cb9g4tEvwIk3i8+nhX0yGrYmZUzbkdg8QbDevheDB8gd0//uPj4c1EQua8Q+MViT0/w==

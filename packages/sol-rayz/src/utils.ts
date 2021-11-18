@@ -1,5 +1,10 @@
 import { deserializeUnchecked } from "borsh";
-import { PublicKey } from "@solana/web3.js";
+import {
+  clusterApiUrl,
+  Connection,
+  Commitment,
+  PublicKey,
+} from "@solana/web3.js";
 import {
   METADATA_SCHEMA,
   Metadata,
@@ -15,9 +20,8 @@ const metaProgamPublicKey = new PublicKey(METADATA_PROGRAM);
 const metaProgamPublicKeyBuffer = metaProgamPublicKey.toBuffer();
 const metaProgamPrefixBuffer = Buffer.from(METADATA_PREFIX);
 
-export const decodeTokenMetadata = async (buffer: Buffer) => {
-  return deserializeUnchecked(METADATA_SCHEMA, Metadata, buffer);
-};
+export const decodeTokenMetadata = async (buffer: Buffer) =>
+  deserializeUnchecked(METADATA_SCHEMA, Metadata, buffer);
 
 export async function getSolanaMetadataAddress(tokenMint: PublicKey) {
   const metaProgamPublicKey = new PublicKey(METADATA_PROGRAM);
@@ -43,3 +47,8 @@ export const isValidSolanaAddress = (address: string) => {
     return false;
   }
 };
+
+export const createConnectionConfig = (
+  clusterApi = clusterApiUrl("mainnet-beta"),
+  commitment = "confirmed"
+) => new Connection(clusterApi, commitment as Commitment);
