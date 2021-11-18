@@ -3,16 +3,20 @@ import {
   getParsedNftAccountsByOwner,
   isValidSolanaAddress,
   getParsedAccountByMint,
+  getParsedNftAccountsByUpdateAuthority,
 } from "@nfteyez/sol-rayz";
 
 const defaultWallet = "3EqUrFrjgABCWAnqMYjZ36GcktiwDtFdkNYwY6C6cDzy";
 const defaultMint = "9siT5VjouSGFjcQp29EtQAbdR1NNJibysVhjcvCyK19T";
+const defaultUpdateAuth = "4iYvVGQkcgYe2PhLLtqvnxMyXuaAAbs5hCweo3imrRLQ";
 
 export const SolRayz = () => {
   const [walletPubKey, setWalletPubKey] = useState<string>(defaultWallet);
   const [mintPubKey, setMintPubKey] = useState<string>(defaultMint);
+  const [updateAuth, setUpdateAuth] = useState<string>(defaultUpdateAuth);
   const [nfts, setNfts] = useState<any>();
   const [singleToken, setSingleToken] = useState<any>();
+  const [allTokensForUAuth, setAllTokensForUAuth] = useState<any>();
 
   useEffect(() => {
     fetchNfts();
@@ -22,6 +26,10 @@ export const SolRayz = () => {
     fetchToken();
   }, [mintPubKey]);
 
+  useEffect(() => {
+    fetchAllTokensForUpdateAuth();
+  }, [updateAuth]);
+
   const fetchNfts = async () => {
     const result = await getParsedNftAccountsByOwner({
       publicAddress: walletPubKey,
@@ -29,12 +37,22 @@ export const SolRayz = () => {
     // console.log("result", result);
     setNfts(result);
   };
+
   const fetchToken = async () => {
     const result = await getParsedAccountByMint({
       mintAddress: mintPubKey,
     });
-    console.log("result", result);
+    // console.log("result", result);
     setSingleToken(result);
+  };
+
+  const fetchAllTokensForUpdateAuth = async () => {
+    // console.log("defaultUpdateAuth", defaultUpdateAuth);
+    // const result = await getParsedNftAccountsByUpdateAuthority({
+    //   updateAuthority: updateAuth,
+    // });
+    // console.log("all tokens for UAuth", result);
+    // setAllTokensForUAuth(result);
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +63,11 @@ export const SolRayz = () => {
   const onMintChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
     setMintPubKey(value);
+  };
+
+  const onUpdateAuthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setUpdateAuth(value);
   };
 
   return (
@@ -75,7 +98,7 @@ export const SolRayz = () => {
               <>
                 <h4>First Item:</h4>
                 <pre style={{ fontSize: "14px" }}>
-                  {JSON.stringify(nfts[1], null, " ")}
+                  {JSON.stringify(nfts[0], null, " ")}
                 </pre>
               </>
             ) : null}
@@ -102,6 +125,32 @@ export const SolRayz = () => {
                 <h4>Result:</h4>
                 <pre style={{ fontSize: "14px" }}>
                   {JSON.stringify(singleToken, null, " ")}
+                </pre>
+              </>
+            ) : null}
+          </div>
+        </div>
+
+        <div>
+          <hr />
+          <h4>Get all NFTs for given Update Authority</h4>
+          <div>
+            <label>
+              <span>Enter Mint Address </span>
+              <input type="text" value={updateAuth} onChange={onMintChange} />
+            </label>
+          </div>
+          <br />
+          <div>
+            {`getParsedNftAccountsByUpdateAuth( "${updateAuth}" )`} {"->"}{" "}
+            {`${!!allTokensForUAuth?.length ? "is FOUND" : "is NOT FOUND"}`}
+          </div>
+          <div>
+            {allTokensForUAuth?.length ? (
+              <>
+                <h4>First in results:</h4>
+                <pre style={{ fontSize: "14px" }}>
+                  {JSON.stringify(allTokensForUAuth[0], null, " ")}
                 </pre>
               </>
             ) : null}

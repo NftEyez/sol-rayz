@@ -20,6 +20,12 @@ type Props = {
   stringifyPubKeys?: boolean;
 };
 
+/**
+ * This fn look for the account associated with passed NFT token mint field.
+ * This associated account holds some useful information like who is current owner of token.
+ * it is stored within result.account.data.parsed.info.owner
+ * Finding the token owner is main purpose of using this fn.
+ */
 export const getParsedAccountByMint = async ({
   mintAddress,
   connection = createConnectionConfig(),
