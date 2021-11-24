@@ -46,6 +46,10 @@ export const getParsedAccountByMint = async ({
     }
   );
 
+  if (!res?.length) {
+    return undefined;
+  }
+
   const firstResult = res[0];
   const formatedData = stringifyPubKeys
     ? publicKeyToString(firstResult)

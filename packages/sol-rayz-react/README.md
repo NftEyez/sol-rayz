@@ -14,7 +14,7 @@ npm i @nfteyez/sol-rayz-react
 
 ## How to use
 
-`useWalletNfts` - return parsed list of NFTs (SPL Tokens) for given wallet public address. Each item in array have all data specified on the blockchain. The NFT metadata stored separately, you need to pick `uri` property for each token and fetch data youself.
+`useWalletNfts` - returns parsed list of NFTs (SPL Tokens) for given wallet public address. Each item in array have all data specified on the blockchain. The NFT metadata stored separately, you need to pick `uri` property for each token and fetch data youself.
 
 ```javascript
 import { useWalletNfts } from "@nfteyez/sol-rayz-react";
@@ -23,8 +23,9 @@ import type { Options } from "@nfteyez/sol-rayz";
 // within component
 const { nfts, isLoading, error } = useWalletNfts({
   publicAddress: walletPublicKey,
-  ...Options,
-});
+  // pass your connection object to use specific RPC node
+  connection,
+}: Options);
 ```
 
 `Options` is the same type used used in `"@nfteyez/sol-rayz"` for `getParsedNftAccountsByOwner` method:
