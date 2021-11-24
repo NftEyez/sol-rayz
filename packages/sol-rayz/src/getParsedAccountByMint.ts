@@ -1,5 +1,4 @@
 import { PublicKey, Connection } from "@solana/web3.js";
-import { TOKEN_PROGRAM } from "./config/solana";
 import { createConnectionConfig } from "./utils";
 import { StringPublicKey } from "./types";
 
@@ -31,26 +30,15 @@ export const getParsedAccountByMint = async ({
   connection = createConnectionConfig(),
   stringifyPubKeys = true,
 }: Props) => {
-  const res = await connection.getParsedProgramAccounts(
-    new PublicKey(TOKEN_PROGRAM),
-    {
-      filters: [
-        { dataSize: 165 },
-        {
-          memcmp: {
-            offset: 0,
-            bytes: mintAddress,
-          },
-        },
-      ],
-    }
+  const res = await connection.getTokenLargestAccounts(
+    new PublicKey(mintAddress)
   );
 
-  if (!res?.length) {
+  if (!res?.value?.length) {
     return undefined;
   }
 
-  const firstResult = res[0];
+  const firstResult = res.value[0];
   const formatedData = stringifyPubKeys
     ? publicKeyToString(firstResult)
     : firstResult;
