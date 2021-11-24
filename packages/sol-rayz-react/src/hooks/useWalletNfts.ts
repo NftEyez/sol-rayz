@@ -12,7 +12,10 @@ import { NftTokenAccount, WalletResult } from "../types";
  * it fetches NFT list when wallet public address changes
  * and returns possible states: error, isLoading or list of NFT
  */
-export const useWalletNfts = ({ publicAddress }: Options): WalletResult => {
+export const useWalletNfts = ({
+  publicAddress,
+  ...rest
+}: Options): WalletResult => {
   const [nfts, setNfts] = useState<NftTokenAccount[]>([]);
   const [error, setError] = useState<unknown | undefined>();
   const [isLoading, setIsLoading] = useState(false);
@@ -36,6 +39,7 @@ export const useWalletNfts = ({ publicAddress }: Options): WalletResult => {
     try {
       const nfts = await getParsedNftAccountsByOwner({
         publicAddress,
+        ...rest,
       });
       setNfts(nfts as any);
     } catch (error) {
