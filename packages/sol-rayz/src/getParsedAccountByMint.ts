@@ -34,7 +34,7 @@ export const getParsedAccountByMint = async ({
     new PublicKey(mintAddress)
   );
 
-  if (!res.value?.length) {
+  if (!res?.value?.length) {
     return undefined;
   }
 
