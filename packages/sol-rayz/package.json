@@ -1,6 +1,6 @@
 {
   "name": "@nfteyez/sol-rayz",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "license": "MIT",
   "author": {
     "name": "NftEyez Team",
@@ -26,9 +26,9 @@
     "test": "yarn run build"
   },
   "devDependencies": {
+    "@solana/web3.js": "^1.30.2",
     "@types/lodash.chunk": "^4.2.6",
     "@types/lodash.orderby": "^4.6.6",
-    "@solana/web3.js": "^1.30.2",
     "rimraf": "~3.0.2",
     "typescript": "~4.4.0"
   },
