@@ -1,4 +1,5 @@
-import { PublicKey, Connection } from "@solana/web3.js";
+import { PublicKey, Connection, ParsedAccountData } from "@solana/web3.js";
+import { TOKEN_PROGRAM } from "./config/solana";
 import { createConnectionConfig } from "./utils";
 import { StringPublicKey } from "./types";
 
@@ -19,6 +20,10 @@ type Props = {
   stringifyPubKeys?: boolean;
 };
 
+function isParsedAccountData(obj: any): obj is ParsedAccountData {
+  return obj?.parsed !== undefined;
+}
+
 /**
  * This fn look for the account associated with passed NFT token mint field.
  * This associated account holds some useful information like who is current owner of token.
@@ -30,18 +35,36 @@ export const getParsedAccountByMint = async ({
   connection = createConnectionConfig(),
   stringifyPubKeys = true,
 }: Props) => {
-  const res = await connection.getTokenLargestAccounts(
-    new PublicKey(mintAddress)
+  const res = await connection.getParsedProgramAccounts(
+    new PublicKey(TOKEN_PROGRAM),
+    {
+      filters: [
+        { dataSize: 165 },
+        {
+          memcmp: {
+            offset: 0,
+            bytes: mintAddress,
+          },
+        },
+      ],
+    }
   );
 
-  if (!res?.value?.length) {
+  if (!res?.length) {
     return undefined;
   }
 
-  const firstResult = res.value[0];
+  const positiveAmountResult = res?.find(({ account }) => {
+    const data = account.data;
+    if (isParsedAccountData(data)) {
+      const amount = +data?.parsed?.info?.tokenAmount?.amount;
+      return amount;
+    }
+    return false;
+  });
   const formatedData = stringifyPubKeys
-    ? publicKeyToString(firstResult)
-    : firstResult;
+    ? publicKeyToString(positiveAmountResult)
+    : positiveAmountResult;
 
   return formatedData;
 };
