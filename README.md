@@ -51,7 +51,8 @@ TODO list:
 
 - Create descriptive README
 - Add React Hooks
-- 
+-
+
 ## Development
 
 <!-- TBA -->
@@ -62,4 +63,12 @@ Clone repo, run in root of the project:
 ```
 yarn
 yarn run build
+```
+
+### Add New new dependency to some package
+
+Here is example how to add new dependency module `@solana/spl-name-service` to `@nfteyez/sol-rayz` package:
+
+```
+ lerna add @solana/spl-name-service --scope=@nfteyez/sol-rayz
 ```

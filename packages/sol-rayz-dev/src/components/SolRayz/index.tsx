@@ -1,6 +1,7 @@
 import { NftsByOwner } from "./NftsByOwner";
 import { NftsByUpdateAuth } from "./NftsByUpdateAuth";
 import { SingleNft } from "./SingleNft";
+import { ResolveDomain } from "./ResolveRomain";
 
 export const SolRayz = () => {
   return (
@@ -8,9 +9,11 @@ export const SolRayz = () => {
       <h2>SolRayz</h2>
 
       <div>
-        <NftsByOwner />
+        <ResolveDomain />
 
-        <SingleNft />
+        {/* <NftsByOwner /> */}
+
+        {/* <SingleNft /> */}
 
         {/* <NftsByUpdateAuth /> */}
       </div>
