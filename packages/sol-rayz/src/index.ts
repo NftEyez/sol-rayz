@@ -1,6 +1,7 @@
 export { getParsedNftAccountsByOwner } from "./getParsedNftAccountsByOwner";
 export { getParsedNftAccountsByUpdateAuthority } from "./getParsedNftAccountsByUpdateAuthority";
 export { getParsedAccountByMint } from "./getParsedAccountByMint";
+export { resolveDomain } from "./resolveDomain";
 export { isValidSolanaAddress, createConnectionConfig } from "./utils";
 
 // weird way to export type

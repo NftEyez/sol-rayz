@@ -21,8 +21,8 @@ function App() {
           <div>Test Package:</div>
         </header>
         {/* <WalletNfts /> */}
-        {/* <SolRayz /> */}
-        <SolRayzReact />
+        <SolRayz />
+        {/* <SolRayzReact /> */}
       </div>
     </ConnectionProvider>
   );
