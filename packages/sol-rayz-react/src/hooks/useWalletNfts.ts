@@ -4,6 +4,7 @@ import {
   isValidSolanaAddress,
 } from "@nfteyez/sol-rayz";
 import type { Options } from "@nfteyez/sol-rayz";
+import { createConnectionConfig } from "@nfteyez/sol-rayz";
 
 import { NftTokenAccount, WalletResult } from "../types";
 
@@ -14,7 +15,11 @@ import { NftTokenAccount, WalletResult } from "../types";
  */
 export const useWalletNfts = ({
   publicAddress,
-  ...rest
+  connection = createConnectionConfig(),
+  sanitize = true,
+  strictNftStandard = false,
+  stringifyPubKeys = true,
+  sort = true
 }: Options): WalletResult => {
   const [nfts, setNfts] = useState<NftTokenAccount[]>([]);
   const [error, setError] = useState<unknown | undefined>();
@@ -39,7 +44,11 @@ export const useWalletNfts = ({
     try {
       const nfts = await getParsedNftAccountsByOwner({
         publicAddress,
-        ...rest,
+        connection,
+        sanitize,
+        strictNftStandard,
+        stringifyPubKeys,
+        sort
       });
       setNfts(nfts as any);
     } catch (error) {
