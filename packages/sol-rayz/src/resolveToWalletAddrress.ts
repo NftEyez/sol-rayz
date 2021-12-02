@@ -5,6 +5,7 @@ import {
   NameRegistryState,
 } from "@solana/spl-name-service";
 import { isValidSolanaAddress, createConnectionConfig } from "./utils";
+import { StringPublicKey } from "./types";
 
 // Address of the SOL TLD
 export const SOL_TLD_AUTHORITY = new PublicKey(
@@ -22,15 +23,32 @@ export const getInputKey = async (input: any) => {
 };
 
 type Props = {
-  input: string;
+  /**
+   * Text to be resolved to Solana wallet Public Key,
+   * For now it resolves Solana Domain Names.
+   * If Solana address passed it is validated and send back
+   */
+  text: string;
+  /**
+   * Optional Connection object.
+   * Required for production use.
+   * W/o it will connect to Mainnet-Beta
+   */
   connection?: Connection;
 };
 
-export const resolveDomain = async ({
-  input: rawInput,
+/**
+ * Fn to resolve text into Solana wallet Public Key,
+ * For now it resolves Solana Domain Names.
+ * If Solana address passed it is validated and send back.
+ *
+ * Throw error if input text can't be resolved and validated.
+ */
+export const resolveToWalletAddrress = async ({
+  text: rawText,
   connection = createConnectionConfig(),
-}: Props) => {
-  const input = rawInput?.trim?.();
+}: Props): Promise<StringPublicKey> => {
+  const input = rawText?.trim?.();
   const isValidSolana = isValidSolanaAddress(input);
 
   if (isValidSolana) {
