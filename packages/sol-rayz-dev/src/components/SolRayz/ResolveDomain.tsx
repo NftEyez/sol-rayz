@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { useConnection } from "@solana/wallet-adapter-react";
-import { resolveDomain } from "@nfteyez/sol-rayz";
-import { error } from "console";
+import { resolveToWalletAddrress } from "@nfteyez/sol-rayz";
 
 const defaultDomain = "gargolon.sol";
 
@@ -18,8 +17,8 @@ export const ResolveDomain = () => {
 
   const resolveIt = async () => {
     try {
-      const result = await resolveDomain({
-        input: domain,
+      const result = await resolveToWalletAddrress({
+        text: domain,
         connection,
       });
 

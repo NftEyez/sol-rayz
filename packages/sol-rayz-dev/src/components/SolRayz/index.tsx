@@ -1,7 +1,7 @@
 import { NftsByOwner } from "./NftsByOwner";
 import { NftsByUpdateAuth } from "./NftsByUpdateAuth";
 import { SingleNft } from "./SingleNft";
-import { ResolveDomain } from "./ResolveRomain";
+import { ResolveDomain } from "./ResolveDomain";
 
 export const SolRayz = () => {
   return (
