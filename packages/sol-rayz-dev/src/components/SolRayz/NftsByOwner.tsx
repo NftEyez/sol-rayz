@@ -3,17 +3,12 @@ import { useConnection } from "@solana/wallet-adapter-react";
 import {
   getParsedNftAccountsByOwner,
   isValidSolanaAddress,
-  createConnectionConfig,
 } from "@nfteyez/sol-rayz";
 
 const defaultWallet = "3EqUrFrjgABCWAnqMYjZ36GcktiwDtFdkNYwY6C6cDzy";
 
-const endpoint = "https://neon-nft.rpcpool.com/467ba3ccd4823cf0b51ccf509af3";
-
-const connection = createConnectionConfig(endpoint);
-
 export const NftsByOwner = () => {
-  // const { connection } = useConnection();
+  const { connection } = useConnection();
   const [nfts, setNfts] = useState<any>();
   const [walletPubKey, setWalletPubKey] = useState<string>(defaultWallet);
   useEffect(() => {
