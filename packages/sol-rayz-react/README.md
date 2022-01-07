@@ -1,4 +1,4 @@
-## @nfteyez/sol-rayz-react
+# @nfteyez/sol-rayz-react
 
 These packages created to simplify the process of parsing NFTs on Solana for React apps.
 
