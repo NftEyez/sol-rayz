@@ -37,6 +37,10 @@ type Props = {
   connection?: Connection;
 };
 
+const errorCantResolve = new Error(
+  "Can't resolve provided name into valid Solana address =("
+);
+
 /**
  * Fn to resolve text into Solana wallet Public Key,
  * For now it resolves Solana Domain Names.
@@ -49,17 +53,23 @@ export const resolveToWalletAddrress = async ({
   connection = createConnectionConfig(),
 }: Props): Promise<StringPublicKey> => {
   const input = rawText?.trim?.();
-  const isValidSolana = isValidSolanaAddress(input);
 
+  // throw and error if input is not provided
+  if (!input) {
+    return Promise.reject(errorCantResolve);
+  }
+
+  const isValidSolana = isValidSolanaAddress(input);
   if (isValidSolana) {
     return Promise.resolve(input);
   }
 
-  const isSolDamain = input.endsWith(".sol");
+  const inputLowerCased = input?.toLowerCase();
+  const isSolDamain = inputLowerCased?.endsWith?.(".sol");
 
   if (isSolDamain) {
     // get domain part before .sol
-    const domainName = input.split(".sol")[0];
+    const domainName = inputLowerCased.split(".sol")[0];
     const { inputDomainKey } = await getInputKey(domainName);
 
     const registry = await NameRegistryState.retrieve(
@@ -75,8 +85,5 @@ export const resolveToWalletAddrress = async ({
   }
 
   // throw error if had no luck get valid Solana address
-  const error = new Error(
-    "Can't resolve provided name into valid Solana address =("
-  );
-  return Promise.reject(error);
+  return Promise.reject(errorCantResolve);
 };

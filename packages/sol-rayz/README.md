@@ -1,4 +1,4 @@
-## @nfteyez/sol-rayz
+# @nfteyez/sol-rayz
 
 These packages created to simplify the process of parsing NFTs on Solana.
 
