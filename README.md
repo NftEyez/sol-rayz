@@ -65,6 +65,22 @@ yarn
 yarn run build
 ```
 
+### Development process
+
+You might want to test package while you do changes. For this purpose you can use react app in `packages/sol-rayz-dev` and start package you are working on in watch mode, for example `sol-rayz`:
+
+```bash
+# go to sol-rayz
+cd packages/sol-rayz
+yarn run watch
+
+# in new tab go to react app
+cd packages/sol-rayz-dev
+yarn run start
+```
+
+Now when you changes something `sol-rayz` package it will be automatically updated in `sol-rayz-dev` app.
+
 ### Add New new dependency to some package
 
 Here is example how to add new dependency module `@solana/spl-name-service` to `@nfteyez/sol-rayz` package:
