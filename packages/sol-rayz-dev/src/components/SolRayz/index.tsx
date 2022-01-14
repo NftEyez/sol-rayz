@@ -11,11 +11,11 @@ export const SolRayz = () => {
       <div>
         {/* <ResolveDomain /> */}
 
-        <NftsByOwner />
+        {/* <NftsByOwner /> */}
 
         {/* <SingleNft /> */}
 
-        {/* <NftsByUpdateAuth /> */}
+        <NftsByUpdateAuth />
       </div>
     </div>
   );

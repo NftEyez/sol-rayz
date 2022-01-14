@@ -1,7 +1,7 @@
 export { getParsedNftAccountsByOwner } from "./getParsedNftAccountsByOwner";
 export { getParsedNftAccountsByUpdateAuthority } from "./getParsedNftAccountsByUpdateAuthority";
 export { getParsedAccountByMint } from "./getParsedAccountByMint";
-export { resolveToWalletAddrress } from "./resolveToWalletAddrress";
+export { resolveToWalletAddress } from "./resolveToWalletAddress";
 export {
   isValidSolanaAddress,
   createConnectionConfig,
