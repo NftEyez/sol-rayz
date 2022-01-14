@@ -23,6 +23,9 @@ const metaProgamPrefixBuffer = Buffer.from(METADATA_PREFIX);
 export const decodeTokenMetadata = async (buffer: Buffer) =>
   deserializeUnchecked(METADATA_SCHEMA, Metadata, buffer);
 
+/**
+ * Get Addresses of Metadata account assosiated with Mint Token
+ */
 export async function getSolanaMetadataAddress(tokenMint: PublicKey) {
   const metaProgamPublicKey = new PublicKey(METADATA_PROGRAM);
   return (

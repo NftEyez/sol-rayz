@@ -9,9 +9,9 @@ export const SolRayz = () => {
       <h2>SolRayz</h2>
 
       <div>
-        <ResolveDomain />
+        {/* <ResolveDomain /> */}
 
-        {/* <NftsByOwner /> */}
+        <NftsByOwner />
 
         {/* <SingleNft /> */}
 
