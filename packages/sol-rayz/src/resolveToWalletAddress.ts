@@ -48,7 +48,7 @@ const errorCantResolve = new Error(
  *
  * Throw error if input text can't be resolved and validated.
  */
-export const resolveToWalletAddrress = async ({
+export const resolveToWalletAddress = async ({
   text: rawText,
   connection = createConnectionConfig(),
 }: Props): Promise<StringPublicKey> => {

@@ -1,59 +1,47 @@
 # @nfteyez/sol-rayz
 
-These packages created to simplify the process of parsing NFTs on Solana.
+These packages created to simplify the process of parsing NFTs on Solana. The project written in TypeScript and is used/battle-tested by [NftEyez.Global](https://nfteyez.global/) with thousands of daily users.
 
-It consists of:
+## How to use
 
-- `@nfteyez/sol-rayz` - package basic things like fetch all NFTs for specific wallet. Designed to be used in browser or Node.JS env.
-- `@nfteyez/sol-rayz-react` - bunch of hooks and utils to be used within React app.
-
-## Install
-
-You need install `@solana/web3.js` in your project, since it is used as peer dependency.
+The simplest way to use it in your app is install package, also you need install `@solana/web3.js` in your project, since it is used as peer dependency.
 
 ```
 npm i @solana/web3.js
 npm i @nfteyez/sol-rayz
-
 ```
 
-or if you want to use code with React
+then use it this way:
 
-```
-npm i @solana/web3.js
-npm i @nfteyez/sol-rayz-react
-
-```
-
-## How to use
-
-<!-- TBA -->
-
-`getParsedNftAccountsByOwner` - return parsed list of NFTs (SPL Tokens) for given wallet public address. Each item in array have all data specified on the blockchain. The NFT metadata stored separately, you need to pick `uri` property for each token and fetch data youself.
-
-```
+```javascript
 import {
-  getParsedNftAccountsByOwner
+  resolveToWalletAddress,
+  getParsedNftAccountsByOwner,
 } from "@nfteyez/sol-rayz";
 
-const tokenList = getParsedNftAccountsByOwner();
+// const address = "3EqUrFrjgABCWAnqMYjZ36GcktiwDtFdkNYwY6C6cDzy;
+// or use Solana Domain
+const address = "NftEyez.sol";
+
+const publicAddress = resolveToWalletAddress(address);
+
+const nftArray = await getParsedNftAccountsByOwner({
+  publicAddress,
+});
 ```
 
-`createConnectionConfig` - method for creating a "connection" with Solana, have two params: clusterApi and commitment.
+## Details
 
-`getParsedNftAccountsByOwner` - method to get array of parsed NFTs by owner address. Have three params: wallet address(required), connection , serialization (true/false).
+This project consists of 2 packages. Please refer to specific README file for in-depth details:
 
-`isValidSolanaAddress` - check if provided string is valid Solana address.
+- [`@nfteyez/sol-rayz`](https://github.com/NftEyez/sol-rayz/tree/main/packages/sol-rayz) - basic functionality, like fetch all NFTs for specific wallet or by Authority. Designed to be used in browser or Node.JS env. Read [Details](https://github.com/NftEyez/sol-rayz/tree/main/packages/sol-rayz).
+- [`@nfteyez/sol-rayz-react`](https://github.com/NftEyez/sol-rayz/tree/main/packages/sol-rayz-react) - bunch of hooks and utils to be used within React app. You can think of it as highlevel construction upon `@nfteyez/sol-rayz` package to simplify its use in UI. Read [Details](https://github.com/NftEyez/sol-rayz/tree/main/packages/sol-rayz-react).
 
-TBD
-
-TODO list:
-
-- Create descriptive README
-- Add React Hooks
--
+<hr />
 
 ## Development
+
+### This section related only for the people who wants contribute to this project.
 
 <!-- TBA -->
 
