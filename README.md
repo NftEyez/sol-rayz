@@ -23,7 +23,7 @@ import {
 // or use Solana Domain
 const address = "NftEyez.sol";
 
-const publicAddress = resolveToWalletAddress(address);
+const publicAddress = await resolveToWalletAddress(address);
 
 const nftArray = await getParsedNftAccountsByOwner({
   publicAddress,
