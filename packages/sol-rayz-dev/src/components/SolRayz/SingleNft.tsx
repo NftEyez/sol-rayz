@@ -19,7 +19,7 @@ export const SingleNft = () => {
       connection,
     });
     console.log("result", result);
-    // setSingleToken(result);
+    setSingleToken(result);
   };
 
   const onMintChange = (e: React.ChangeEvent<HTMLInputElement>) => {
