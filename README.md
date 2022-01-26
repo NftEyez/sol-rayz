@@ -6,7 +6,7 @@ These packages created to simplify the process of parsing NFTs on Solana. The pr
 
 The simplest way to use it in your app is install package, also you need install `@solana/web3.js` in your project, since it is used as peer dependency.
 
-```
+```bash
 npm i @solana/web3.js
 npm i @nfteyez/sol-rayz
 ```
@@ -23,7 +23,7 @@ import {
 // or use Solana Domain
 const address = "NftEyez.sol";
 
-const publicAddress = await resolveToWalletAddress(
+const publicAddress = await resolveToWalletAddress({
   text: address
 });
 
