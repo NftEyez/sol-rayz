@@ -1,6 +1,6 @@
 # @nfteyez/sol-rayz-react
 
-These packages created to simplify the process of parsing NFTs on Solana for React apps.
+React hooks to fetch NFTs on Solana.
 
 ## Install
 
@@ -20,12 +20,21 @@ npm i @nfteyez/sol-rayz-react
 import { useWalletNfts } from "@nfteyez/sol-rayz-react";
 import type { Options } from "@nfteyez/sol-rayz";
 
-// within component
-const { nfts, isLoading, error } = useWalletNfts({
-  publicAddress: walletPublicKey,
-  // pass your connection object to use specific RPC node
-  connection,
-}: Options);
+const MyAwesomeGallery = () => {
+  const { nfts, isLoading, error } = useWalletNfts({
+    publicAddress: walletPublicKey,
+    // pass your connection object to use specific RPC node
+    connection,
+  }: Options);
+
+  if (error) return <div>Have some error</div>
+  if (isLoading) return <div>Loading...</div>
+  
+  return (
+    <div>Wallet have {nfts?.length} NFTs</div>
+  ))
+}
+
 ```
 
 `Options` is the same type used used in `"@nfteyez/sol-rayz"` for `getParsedNftAccountsByOwner` method:
