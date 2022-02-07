@@ -2,6 +2,8 @@
 
 These packages created to simplify the process of parsing NFTs on Solana. The project written in TypeScript and is used/battle-tested by [NftEyez.Global](https://nfteyez.global/) with thousands of daily users.
 
+DEMO: [Galley Demo](https://create-dapp-solana-nextjs.vercel.app/gallery)
+
 ## How to use
 
 The simplest way to use it in your app is install package, also you need install `@solana/web3.js` in your project, since it is used as peer dependency.
