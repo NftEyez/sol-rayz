@@ -1,4 +1,9 @@
-import { Connection, PublicKey, AccountInfo } from "@solana/web3.js";
+import {
+  Connection,
+  PublicKey,
+  AccountInfo,
+  ParsedAccountData,
+} from "@solana/web3.js";
 import chunks from "lodash.chunk";
 import orderBy from "lodash.orderby";
 import {
@@ -106,7 +111,7 @@ export const getParsedNftAccountsByOwner = async ({
 
   // Fetch Found Metadata Account data by chunks
   const metaAccountsRawPromises: PromiseSettledResult<
-    (AccountInfo<Buffer> | null)[]
+    (AccountInfo<Buffer | ParsedAccountData> | null)[]
   >[] = await Promise.allSettled(
     chunks(metadataAccounts, 99).map((chunk) =>
       connection.getMultipleAccountsInfo(chunk as PublicKey[])

@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@nfteyez/sol-rayz": "^0.9.1",
-    "@solana/web3.js": "^1.30.2",
+    "@solana/web3.js": "^1.33.0",
     "swr": "^1.0.1"
   },
   "peerDependencies": {
