@@ -1,6 +1,6 @@
 {
   "name": "@nfteyez/sol-rayz",
-  "version": "0.9.1",
+  "version": "0.10.0",
   "license": "MIT",
   "author": {
     "name": "NftEyez Team",
@@ -26,14 +26,14 @@
     "test": "yarn run build"
   },
   "devDependencies": {
-    "@solana/web3.js": "^1.30.2",
+    "@solana/web3.js": "^1.33.0",
     "@types/lodash.chunk": "^4.2.6",
     "@types/lodash.orderby": "^4.6.6",
     "rimraf": "~3.0.2",
     "typescript": "~4.4.0"
   },
   "peerDependencies": {
-    "@solana/web3.js": "^1.30.2"
+    "@solana/web3.js": "^1.33.0"
   },
   "dependencies": {
     "@solana/spl-name-service": "^0.1.3",
