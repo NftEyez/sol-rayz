@@ -15,7 +15,7 @@ export const SolRayz = () => {
 
         {/* <SingleNft /> */}
 
-        <NftsByUpdateAuth />
+        {/* <NftsByUpdateAuth /> */}
       </div>
     </div>
   );

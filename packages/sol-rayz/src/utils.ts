@@ -18,7 +18,9 @@ extendBorsh();
 
 const metaProgamPublicKey = new PublicKey(METADATA_PROGRAM);
 const metaProgamPublicKeyBuffer = metaProgamPublicKey.toBuffer();
-const metaProgamPrefixBuffer = Buffer.from(METADATA_PREFIX);
+// Create UTF-8 bytes Buffer from string
+// similar to Buffer.from(METADATA_PREFIX) but should work by default in node.js/browser
+const metaProgamPrefixBuffer = new TextEncoder().encode(METADATA_PREFIX);
 
 export const decodeTokenMetadata = async (buffer: Buffer) =>
   deserializeUnchecked(METADATA_SCHEMA, Metadata, buffer);
