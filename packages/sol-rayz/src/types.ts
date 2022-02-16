@@ -1,15 +1,15 @@
 export type StringPublicKey = string;
 
-interface PromiseFulfilledResult<T> {
+export interface PromiseFulfilledResult<T> {
   status: "fulfilled";
   value: T;
 }
 
-interface PromiseRejectedResult {
+export interface PromiseRejectedResult {
   status: "rejected";
   reason: any;
 }
 
-type PromiseSettledResult<T> =
+export type PromiseSettledResult<T> =
   | PromiseFulfilledResult<T>
   | PromiseRejectedResult;
