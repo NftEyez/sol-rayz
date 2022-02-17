@@ -48,7 +48,7 @@ export type Options = {
   sort?: boolean;
   /**
    * Limit response by this number
-   * by default response limited by 5000 NFTs
+   * by default response limited by 5000 NFTs.
    */
   limit?: number;
 };
