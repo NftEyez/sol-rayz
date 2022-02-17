@@ -1,6 +1,6 @@
 {
   "name": "@nfteyez/sol-rayz-dev",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
@@ -28,8 +28,8 @@
     ]
   },
   "dependencies": {
-    "@nfteyez/sol-rayz": "^0.10.1",
-    "@nfteyez/sol-rayz-react": "^0.10.1",
+    "@nfteyez/sol-rayz": "^0.10.2",
+    "@nfteyez/sol-rayz-react": "^0.10.2",
     "@solana/wallet-adapter-base": "^0.7.0",
     "@solana/wallet-adapter-react": "^0.13.1",
     "@testing-library/jest-dom": "^5.11.4",
