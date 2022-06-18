@@ -124,7 +124,7 @@ const isValidAddress: boolean = isValidSolanaAddress((walletPublicKey: string));
 ```javascript
 import { getParsedAccountByMint } from '@nfteyez/sol-rayz';
 
-const parsedAccountByMint: ParsedAccountInfo = getParsedAccountByMintgetParsedAccountByMint({
+const parsedAccountByMint: ParsedAccountInfo = getParsedAccountByMint({
   /**
    * Mint address
    */
