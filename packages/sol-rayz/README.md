@@ -106,6 +106,11 @@ const tokenList = await getParsedNftAccountsByOwner({
    * by default response limited by 5000 NFTs
    */
   limit?: number;
+  /**
+   * Limit number of PublicKeys per request to `getMultipleAccountsInfo`
+   * Default is 99
+   */
+  metaAccountsRequestChunkSize?: number;
 });
 ```
 
