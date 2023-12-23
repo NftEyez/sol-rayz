@@ -51,6 +51,11 @@ export type Options = {
    * by default response limited by 5000 NFTs.
    */
   limit?: number;
+  /**
+   * Limit number of PublicKeys per request to `getMultipleAccountsInfo`
+   * Default is 99
+   */
+  metaAccountsRequestChunkSize?: number;
 };
 
 enum sortKeys {
@@ -64,6 +69,7 @@ export const getParsedNftAccountsByOwner = async ({
   stringifyPubKeys = true,
   sort = true,
   limit = 5000,
+  metaAccountsRequestChunkSize = 99,
 }: Options) => {
   const isValidAddress = isValidSolanaAddress(publicAddress);
   if (!isValidAddress) {
@@ -113,7 +119,7 @@ export const getParsedNftAccountsByOwner = async ({
   const metaAccountsRawPromises: PromiseSettledResult<
     (AccountInfo<Buffer | ParsedAccountData> | null)[]
   >[] = await Promise.allSettled(
-    chunks(metadataAccounts, 99).map((chunk) =>
+    chunks(metadataAccounts, metaAccountsRequestChunkSize).map((chunk) =>
       connection.getMultipleAccountsInfo(chunk as PublicKey[])
     )
   );
